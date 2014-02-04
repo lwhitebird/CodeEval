@@ -1,5 +1,4 @@
 import sys
-test_cases = open(sys.argv[1])
 
 class PangramComplement():
     def __init__(self, string):
@@ -19,6 +18,8 @@ class PangramComplement():
             lowercase_letter = letter.lower()
             self.remove(lowercase_letter)
         return self.return_subset_or_null()
+
+test_cases = open(sys.argv[1])
 
 for test in test_cases:
     alphabet_complement = PangramComplement(test)
