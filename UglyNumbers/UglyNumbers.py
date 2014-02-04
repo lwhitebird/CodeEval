@@ -1,6 +1,5 @@
-import sys, time
-
-start_time = time.time()
+import sys
+import re
 
 class Operators():
     def __init__(self, length):
@@ -64,12 +63,15 @@ def is_ugly(number):
             break
     return isugly
 
-
-
 test_cases = open(sys.argv[1], 'r')
 
 for test in test_cases:
     strippedtest = test.strip('\n')
+    zerocountorig = strippedtest.count('0')
+    multiplezeroregex = re.compile('00+')
+    strippedtest = multiplezeroregex.sub('0', strippedtest)
+    zerocountremaining = strippedtest.count('0')
+    zeroaccountfor = zerocountorig - zerocountremaining
     if strippedtest:
         totaluglys = 0
         sums = Sums(strippedtest)
@@ -86,7 +88,7 @@ for test in test_cases:
         for evaluated_sum in sums.evaluated_sums_with_count:
             if is_ugly(evaluated_sum):
                 totaluglys += sums.evaluated_sums_with_count[evaluated_sum]
+        totaluglys = totaluglys * pow(3, zeroaccountfor)
         print totaluglys
 
 test_cases.close()
-print str(time.time() - start_time) + " seconds"
